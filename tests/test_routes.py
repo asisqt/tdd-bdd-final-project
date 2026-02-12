@@ -1,18 +1,3 @@
-######################################################################
-# Copyright 2016, 2023 John J. Rofrano. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-######################################################################
 """
 Product API Service Test Suite
 
@@ -43,10 +28,6 @@ DATABASE_URI = os.getenv(
 )
 BASE_URL = "/products"
 
-
-######################################################################
-#  T E S T   C A S E S
-######################################################################
 # pylint: disable=too-many-public-methods
 class TestProductRoutes(TestCase):
     """Product Service tests"""
@@ -75,9 +56,6 @@ class TestProductRoutes(TestCase):
     def tearDown(self):
         db.session.remove()
 
-    ############################################################
-    # Utility function to bulk create products
-    ############################################################
     def _create_products(self, count: int = 1) -> list:
         """Factory method to create products in bulk"""
         products = []
@@ -92,9 +70,6 @@ class TestProductRoutes(TestCase):
             products.append(test_product)
         return products
 
-    ############################################################
-    #  T E S T   C A S E S
-    ############################################################
     def test_index(self):
         """It should return the index page"""
         response = self.client.get("/")
@@ -108,9 +83,6 @@ class TestProductRoutes(TestCase):
         data = response.get_json()
         self.assertEqual(data['message'], 'OK')
 
-    # ----------------------------------------------------------
-    # TEST CREATE
-    # ----------------------------------------------------------
     def test_create_product(self):
         """It should Create a new Product"""
         test_product = ProductFactory()
@@ -163,13 +135,7 @@ class TestProductRoutes(TestCase):
         response = self.client.post(BASE_URL, data={}, content_type="plain/text")
         self.assertEqual(response.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
-    #
     # ADD YOUR TEST CASES HERE
-    #
-
-    ######################################################################
-    # Utility functions
-    ######################################################################
 
     def get_product_count(self):
         """save the current number of products"""
